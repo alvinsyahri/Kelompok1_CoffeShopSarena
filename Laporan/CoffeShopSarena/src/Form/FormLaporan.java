@@ -50,18 +50,18 @@ public class FormLaporan extends javax.swing.JFrame {
     }
     
     public void Perhitungan(){
-        try{
-            Connection c = Koneksi1.getKoneksi();
-            Statement s = c.createStatement();
-            
-            String sql = "";
-            ResultSet r = s.executeQuery(sql);
-            if(r.next()){
-                txtJumlahTransaksi.setText(String.valueOf(r.getString("I")));
-            }
-        }catch(Exception e){
-            System.out.println(e);
-        }
+//        try{
+//            Connection c = Koneksi1.getKoneksi();
+//            Statement s = c.createStatement();
+//            
+//            String sql = "";
+//            ResultSet r = s.executeQuery(sql);
+//            if(r.next()){
+//                txtJumlahTransaksi.setText(String.valueOf(r.getString("I")));
+//            }
+//        }catch(Exception e){
+//            System.out.println(e);
+//        }
     }
     
    public void TampilData(){
@@ -82,7 +82,7 @@ public class FormLaporan extends javax.swing.JFrame {
             Connection c = Koneksi1.getKoneksi();
             Statement s = c.createStatement();
             
-            String sql = "SELECT t.id_transaksi, b.nama_barang, t.tanggal, b.harga, "
+            String sql = "SELECT t.id_transaksi, b.nama_barang, t.tanggal, b.harga_barang, "
                     + "t.jumlah, t.total from transaksi t LEFT JOIN barang b ON t.barang = "
                     + "b.id_barang where year(t.tanggal) = '"
                     +FormatTahun.format(kalender.getTime()) + "' && month(t.tanggal) = '"+FormatBulan.format(kalender.getTime())+"'";
@@ -92,14 +92,14 @@ public class FormLaporan extends javax.swing.JFrame {
                     r.getString("id_transaksi"),
                     r.getString("nama_barang"),
                     r.getString("tanggal"),
-                    r.getString("harga"),
+                    r.getString("harga_barang"),
                     r.getString("jumlah"),
                     r.getString("total")
                 });
             }
             hitung(FormatTahun.format(kalender.getTime()), FormatBulan.format(kalender.getTime()));
         }catch(SQLException e){
-            System.out.println("terjadi kesalahan");
+            System.out.println(e);
         }
     }
 
@@ -112,7 +112,6 @@ public class FormLaporan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -130,12 +129,7 @@ public class FormLaporan extends javax.swing.JFrame {
         txtTotalBelanjaan = new javax.swing.JLabel();
         txtTotalTransaksi = new javax.swing.JLabel();
         txtTotalTransaksi1 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Laporan Penjualan");
+        jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -239,7 +233,7 @@ public class FormLaporan extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(34, Short.MAX_VALUE))))
+                        .addContainerGap(54, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,11 +255,12 @@ public class FormLaporan extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtJumlahTransaksi, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTotalBelanjaan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtJumlahTransaksi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTotalBelanjaan, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -278,6 +273,12 @@ public class FormLaporan extends javax.swing.JFrame {
                 .addGap(45, 45, 45))
         );
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Laporan Penjualan");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,19 +287,13 @@ public class FormLaporan extends javax.swing.JFrame {
                 .addGap(346, 346, 346)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(131, 379, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(622, Short.MAX_VALUE))
         );
 
         pack();
@@ -322,7 +317,7 @@ public class FormLaporan extends javax.swing.JFrame {
         try{
             Connection c = Koneksi1.getKoneksi();
             String sql = "Select t.id_transaksi, b.nama_barang, t.tanggal, "
-            + "b.harga, t.jumlah, t.total from transaksi t LEFT JOIN "
+            + "b.harga_barang, t.jumlah, t.total from transaksi t LEFT JOIN "
             + "barang b ON t.barang = b.id_barang where year(t.tanggal) = '"
             +txtTahun.getText() + "' && month(t.tanggal) = '"+cmbBulan.getSelectedItem()+"'" ;
             Statement stat = c.createStatement();
@@ -332,7 +327,7 @@ public class FormLaporan extends javax.swing.JFrame {
                     rs.getString("id_transaksi"),
                     rs.getString("nama_barang"),
                     rs.getString("tanggal"),
-                    rs.getString("harga"),
+                    rs.getString("harga_barang"),
                     rs.getString("jumlah"),
                     rs.getString("total")
                 });

@@ -12,7 +12,7 @@ import java.sql.DriverManager;
  * @author ALVIN
  */
 public class Koneksi1 {
-     private static java.sql.Connection koneksi;
+    private static java.sql.Connection koneksi;
     private static java.sql.Statement stm;
    
     public static java.sql.Connection getKoneksi(){
